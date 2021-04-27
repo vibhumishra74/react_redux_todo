@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { DELETE_TODO, selectdata, UPDATE_TODO } from "../../redux/appSlice";
 
 const TodoItem = ({ task }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const dispatch = useDispatch();
+  const select = useSelector(selectdata)
   // const history = useHistory();
   const textRef = useRef(null);
   function editItemToState(e) {
@@ -25,26 +26,31 @@ const TodoItem = ({ task }) => {
     );
   };
   const redirect = () => {
-    // let todo = selectdata.map((item, index) => {
-    //   return (
-    //     <Link
-    //       key={item.id}
-    //       to={{
-    //         pathname: "/" + item.id,
-    //         state: item,
-    //       }}
-    //     ></Link>
-    //   );
-    // });
+    let todo = select.map((item, index) => {
+      return (
+        <Link
+          key={item.id}
+          to={{
+            pathname: "/" + item.id,
+            state: item,
+          }}
+        ></Link>
+      );
+    });
     setIsUpdate(true);
-    // return todo;
+    return todo;
   };
   const renderItem = () => {
     return (
       <>
-        {task.task}
+       <Link to={'/Singletodo/'+task.id} style={{textDecoration:"none"}}>
+       {task.task}
+         </Link>
+        
         <button style={{ margin: "5px" }} onClick={redirect}>
+         {/* <Link to={'/Singletodo/'+task.id}> */}
           Edit
+         {/* </Link> */}
         </button>
         <button onClick={() => dispatch(DELETE_TODO(task.id))}>Delete</button>
       </>

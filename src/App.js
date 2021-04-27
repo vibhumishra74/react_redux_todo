@@ -4,7 +4,7 @@ import TodoList from "./components/TodoList/TodoList";
 import Typography from "@material-ui/core/Typography";
 import { useSelector } from "react-redux";
 import Singletodo from "./components/TodoList/singletodo";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch,Link } from "react-router-dom";
 
 import "./App.css";
 import { selectdata } from "./redux/appSlice";
@@ -17,24 +17,27 @@ function App() {
         Todos List
       </Typography>
       <h1>
-        Total tasks remained:
+        <Link to={'/'}>
+         Total tasks remained:
+        </Link>
         <span style={{ color: "red" }}> {totaltask.length} </span>{" "}
       </h1>
-      <AddTodo />
+      {/* <AddTodo /> */}
       {/* <TodoList /> */}
 
-      <BrowserRouter>
+    
+          <Route exact path="/" component={AddTodo} />
         <Switch>
           <Route exact path="/" component={TodoList} />
           <Route
             exact
-            path="/Singletodo:id"
+            path="/Singletodo/:id"
             render={(props) => {
               return <Singletodo {...props} />;
             }}
           />
         </Switch>
-      </BrowserRouter>
+     
     </div>
   );
 }

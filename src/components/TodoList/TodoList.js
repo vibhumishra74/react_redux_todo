@@ -8,13 +8,13 @@ const TodoList = () => {
   const totaltask = useSelector(selectdata);
 
   const taskItems = totaltask.map((task) => {
-    <Link
-      key={task.id}
-      to={{
-        pathname: "/Singletodo" + task.id,
-        state: task,
-      }}
-    ></Link>;
+    // <Link
+    //   key={task.id}
+    //   to={{
+    //     pathname: "/Singletodo/" + task.id,
+    //     state: task,
+    //   }}
+    // ></Link>;
     return <TodoItem task={task} key={task.id} />;
   });
 
